@@ -399,8 +399,8 @@ float score_toplevel_move(board_t board, int move) {
     elapsed = (finish.tv_sec - start.tv_sec);
     elapsed += (finish.tv_usec - start.tv_usec) / 1000000.0;
 
-    printf("Move %d: result %f: eval'd %ld moves (%d cache hits, %d cache size) in %.2f seconds (maxdepth=%d)\n", move, res,
-        state.moves_evaled, state.cachehits, (int)state.trans_table.size(), elapsed, state.maxdepth);
+    //printf("Move %d: result %f: eval'd %ld moves (%d cache hits, %d cache size) in %.2f seconds (maxdepth=%d)\n", move, res,
+        //state.moves_evaled, state.cachehits, (int)state.trans_table.size(), elapsed, state.maxdepth);
 
     return res;
 }
@@ -412,7 +412,7 @@ int find_best_move(board_t board) {
     int bestmove = -1;
 
     print_board(board);
-    printf("Current scores: heur %.0f, actual %.0f\n", score_heur_board(board), score_board(board));
+    //printf("Current scores: heur %.0f, actual %.0f\n", score_heur_board(board), score_board(board));
 
     for(move=0; move<4; move++) {
         float res = score_toplevel_move(board, move);
@@ -445,13 +445,13 @@ int ask_for_move(board_t board) {
         char movestr[64];
         const char *allmoves = "UDLR";
 
-        printf("Move [%s]? ", validstr);
+        //printf("Move [%s]? ", validstr);
 
         if(!fgets(movestr, sizeof(movestr)-1, stdin))
             return -1;
 
         if(!strchr(validstr, toupper(movestr[0]))) {
-            printf("Invalid move.\n");
+            //printf("Invalid move.\n");
             continue;
         }
 
@@ -501,7 +501,7 @@ void play_game(get_move_func_t get_move) {
         if(move == 4)
             break; // no legal moves
 
-        printf("\nMove #%d, current score=%.0f\n", ++moveno, score_board(board) - scorepenalty);
+       // printf("\nMove #%d, current score=%.0f\n", ++moveno, score_board(board) - scorepenalty);
 
         move = get_move(board);
         if(move < 0)
@@ -520,7 +520,7 @@ void play_game(get_move_func_t get_move) {
     }
 
     print_board(board);
-    printf("\nGame over. Your score is %.0f. The highest rank you achieved was %d.\n", score_board(board) - scorepenalty, get_max_rank(board));
+   // printf("\nGame over. Your score is %.0f. The highest rank you achieved was %d.\n", score_board(board) - scorepenalty, get_max_rank(board));
 }
 
 int main() {

@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
-
+import torch
+from game2048.displays import Display
 
 def get_flask_app(game, agent):
     app = Flask(__name__)
@@ -31,14 +32,23 @@ if __name__ == "__main__":
     GAME_SIZE = 4
     SCORE_TO_WIN = 2048
     APP_PORT = 5005
-    APP_HOST = "0.0.0.0"
+    APP_HOST = "localhost"
 
     from game2048.game import Game
+    from game2048.Model import Net
+
+    model = Net()
+    model.load_state_dict(torch.load("./game2048/para.pkl", map_location='cpu'))
+    model.eval()
+
     game = Game(size=GAME_SIZE, score_to_win=SCORE_TO_WIN)
+    from game2048.agents import LXYAgent
 
     try:
-        from game2048.agents import ExpectiMaxAgent
-        agent = ExpectiMaxAgent(game=game)
+       # from game2048.agents import ExpectiMaxAgent
+       from game2048.agents import LXYAgent
+       agent = LXYAgent(model, game, display=Display())
+       #agent = LXYAgent(game=game)
     except:
         from game2048.agents import RandomAgent
         print("WARNING: Please compile the ExpectiMaxAgent first following the README.")

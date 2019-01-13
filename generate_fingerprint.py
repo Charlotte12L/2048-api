@@ -1,14 +1,15 @@
 import json
 import numpy as np
 from game2048.game import Game
+import torch
 
 
-def generate_fingerprint(AgentClass, **kwargs):
+def generate_fingerprint(model, AgentClass, **kwargs):
     with open("board_cases.json") as f:
         board_json = json.load(f)
 
     game = Game(size=4, enable_rewrite_board=True)
-    agent = AgentClass(game=game, **kwargs)
+    agent = AgentClass(model=model, game=game, **kwargs)
 
     trace = []
     for board in board_json:
@@ -24,10 +25,18 @@ if __name__ == '__main__':
 
     '''====================
     Use your own agent here.'''
-    from game2048.agents import ExpectiMaxAgent as TestAgent
+    #from game2048.agents import ExpectiMaxAgent as TestAgent
     '''===================='''
+    from game2048.agents import LXYAgent as TestAgent
 
-    fingerprint = generate_fingerprint(TestAgent)
+    '''===================='''
+    from game2048.Model import Net
+
+    model = Net()
+    model.load_state_dict(torch.load("./game2048/para.pkl", map_location='cpu'))
+    model.eval()
+   # scores = []
+    fingerprint = generate_fingerprint(model,TestAgent)
 
     with open("EE369_fingerprint.json", 'w') as f:        
         pack = dict()
