@@ -7,19 +7,18 @@ A 2048 game api for training supervised learning (imitation learning) or reinfor
     * [`agents.py`](game2048/agents.py): the `Agent` class with instances. Added `LXYAgent`
     * [`displays.py`](game2048/displays.py): the `Display` class with instances, to show the `Game` state.
     * [`expectimax/`](game2048/expectimax): a powerful ExpectiMax agent by [here](https://github.com/nneonneo/2048-ai).
-    * [`mergedata`](game2048/mergedata.py): preprocess the data obtained from ExpectiMax
-    * [`Model`](game2048/Model.py): My Net
-    * [`train`](game2048/train.py): def train()
-    * [`test`](game2048/train_CNN.py): def test()
-    * [`train_CNN`](game2048/train_CNN.py): train my Net
+    * [`mergedata.py`](game2048/mergedata.py): preprocess the data obtained from ExpectiMax
+    * [`Model.py`](game2048/Model.py): My Net
+    * [`train_CNN.py`](game2048/train_CNN.py): train my Net
+    * [`para.pkl`](game2048/para.pkl): the best parameters for my net
 * [`explore.ipynb`](explore.ipynb): introduce how to use the `Agent`, `Display` and `Game`.
 * [`static/`](static/): frontend assets (based on Vue.js) for web app.
 * [`get_layer_boards/`](get_layer_boards/): 
     * [`agents.py`](get_layer_boards/agents.py): get data from Expectimax Agent
     * [`getboards.py`](get_layer_boards/getboards.py): get data from Expectimax Agent
 * [`webapp.py`](webapp.py): run the web app (backend) demo.
-* [`evaluate.py`](evaluate.py): evaluate LXYAgent.
-* [`generate_fingerprint.py`](generate_fingerprint.py): get LXYAgent's fingerprint.
+* [`evaluate.py`](evaluate.py): evaluate `LXYAgent`.
+* [`generate_fingerprint.py`](generate_fingerprint.py): get `LXYAgent`'s fingerprint.
 
 # Requirements
 * code only tested on linux system (ubuntu 16.04)
@@ -33,11 +32,13 @@ then:
 python3 train_CNN.py
 ```
 # To evaluate LXYAgent
+```bash
 python3 evaluate.py >>evaluation.log
-
+```
 # To generate fingerprint
+```bash
 python3 generate_fingerprint.py
-
+```
 # To compile the pre-defined ExpectiMax agent
 
 ```bash
