@@ -27,10 +27,11 @@ A 2048 game api for training supervised learning (imitation learning) or reinfor
 * Pytorch
 
 # To train the net
+```bash
 Before train the net, you should create the dir ./game2048/saved
 then:
 python3 train_CNN.py
-
+```
 # To evaluate LXYAgent
 python3 evaluate.py >>evaluation.log
 
