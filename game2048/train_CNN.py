@@ -10,8 +10,7 @@ import time
 import pandas as pd
 import numpy as np
 import csv
-from train import train
-from test import test
+
 
 
 batch_size = 128
@@ -50,9 +49,41 @@ model = Net()
 model = model.cuda()
 optimizer = optim.Adam(model.parameters(), lr = 0.001)
 
+def train(epoch):
+    for batch_idx, (data, target) in enumerate(train_loader):
+        data, target = Variable(data).cuda(), Variable(target).cuda()
+        data = data.unsqueeze(dim=1)
+        optimizer.zero_grad()
+        output = model(data)
+        loss = F.cross_entropy(output, target)
+        loss.backward()
+        optimizer.step()
+        if batch_idx % 1000 == 0:
+            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+                epoch, batch_idx * len(data), len(train_loader.dataset),
+                100. * batch_idx / len(train_loader), loss.item()))
+    torch.save(model.state_dict(), './direct/new/game2048/saved/epoch_{}.pkl'.format(epoch))
+
+def test(epoch):
+    test_loss = 0
+    correct = 0
+    for data, target in test_loader:
+        with torch.no_grad():
+            data = Variable(data).cuda()
+            target =Variable(target).cuda()
+        data = data.unsqueeze(dim=1)
+        output = model(data)
+        test_loss += F.cross_entropy(output, target, size_average=False).item()
+        pred = output.data.max(1, keepdim=True)[1]
+        correct += pred.eq(target.data.view_as(pred)).cpu().sum()
+
+    test_loss /= len(test_loader.dataset)
+    print('\nTest set epoch {}: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+        epoch, test_loss, correct, len(test_loader.dataset),
+        100. * float(correct) / len(test_loader.dataset)))
 
 
-for epoch in range(40, NUM_EPOCHS):
+for epoch in range(40,41):
     model.train()
     train(epoch)
     model.eval()
