@@ -19,6 +19,7 @@ A 2048 game api for training supervised learning (imitation learning) or reinfor
 * [`webapp.py`](webapp.py): run the web app (backend) demo.
 * [`evaluate.py`](evaluate.py): evaluate `LXYAgent`.
 * [`generate_fingerprint.py`](generate_fingerprint.py): get `LXYAgent`'s fingerprint.
+* [`past_train_log.out`](past_train_log.out): part of my past train log.
 
 # Requirements
 * code only tested on linux system (ubuntu 16.04)
