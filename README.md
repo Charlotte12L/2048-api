@@ -1,6 +1,8 @@
 # 2048-api
 A 2048 game api for training supervised learning (imitation learning) or reinforcement learning agents
-
+# Statement
+It is a course project and TA provides us with an expectimax agent which can get scores above 2048. Therefore, we can collect board and the agent’s corresponding solution (direction: up, down, left,  right). It’s just like an image classification task where boards are parallel to images, solutions are parallel to labels. Our aim is to make our own agent's score reach 900+. 
+Deep learning part: my net: game2048/Model.py, training: game2048/train_CNN.py.
 # Code structure
 * [`game2048/`](game2048/): the main package.
     * [`game.py`](game2048/game.py): the core 2048 `Game` class.
